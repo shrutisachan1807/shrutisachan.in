@@ -28,7 +28,6 @@ const fetchData = () => {
 
 //Ensure Audio plays
 var isPlaying = false;
-var clickCount = 0;
 const song = document.getElementsByClassName("song")[0];
 Audio.prototype.play = (function (play) {
   return function () {
@@ -216,11 +215,7 @@ const animationTimeline = () => {
         rotation: -15,
         ease: Expo.easeOut,
         onStart: function () {
-          if (!isPlaying) {
-            console.log("started");
-            song.play();
-            isPlaying = true;
-          }
+          document.querySelector(".makeUserClick").style.display = "block";
         },
       },
       0.2,
@@ -329,11 +324,6 @@ const animationTimeline = () => {
   // Restart Animation on click
   const replyBtn = document.getElementById("replay");
   replyBtn.addEventListener("click", () => {
-    // song.pause();
-    // clickCount = 0;
-    // document.querySelector(".makeUserClick").style.display = "block";
-    // tl.restart();
-    console.log("reload the page");
     window.location.href = "/";
   });
 };
@@ -341,9 +331,7 @@ const animationTimeline = () => {
 // Run fetch and animation in sequence
 fetchData();
 
-document.body.addEventListener("click", function (evt) {
-  clickCount++;
-  if (clickCount > 0) {
-    document.querySelector(".makeUserClick").style.display = "none";
-  }
+const playBtn = document.querySelector(".makeUserClick");
+playBtn.addEventListener("click", () => {
+  song.play();
 });
